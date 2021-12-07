@@ -10,7 +10,9 @@ fun main() {
     p.waitFor()
     val input = BufferedReader(
         InputStreamReader(p.inputStream, StandardCharsets.UTF_8)
-    ).read()
+    ).lines()
+    .collect(Collectors.joining(""))
+    .toInt()
 
     val error = BufferedReader(
         InputStreamReader(p.errorStream, StandardCharsets.UTF_8))
