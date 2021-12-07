@@ -1,5 +1,6 @@
 fun main() {
-  // BEGIN
-  print(420262531)
-  // END
+    // BEGIN
+    private const val NUMBER_TO_PRINT = 420262531
+    print(number)
+    // END
 }
