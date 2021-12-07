@@ -4,14 +4,15 @@ import java.nio.charset.StandardCharsets
 import java.util.stream.Collectors
 
 fun main() {
-    val expected = 420262531
+    val expected = ""
 
     val p = Runtime.getRuntime().exec("kotlin -classpath Main.jar MainKt")
     p.waitFor()
     val input = BufferedReader(
         InputStreamReader(p.inputStream, StandardCharsets.UTF_8)
-    ).read()
-
+    )
+        .lines()
+        .collect(Collectors.joining("\n"))
     val error = BufferedReader(
         InputStreamReader(p.errorStream, StandardCharsets.UTF_8))
         .lines()
