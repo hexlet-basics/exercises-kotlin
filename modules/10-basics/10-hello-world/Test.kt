@@ -18,7 +18,7 @@ fun main() {
             .collect(Collectors.joining("\n"))
 
     println(input)
-    
+
     if (!expected.equals(input) || error.isNotBlank()) {
         println("Test(hello-world): ERROR")
         throw Exception(
