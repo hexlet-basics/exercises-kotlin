@@ -1,5 +1,5 @@
 fun main() {
   // BEGIN
-  // You know nothing, Jon Snow!
+  print(420262531)
   // END
 }
