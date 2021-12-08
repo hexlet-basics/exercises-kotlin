@@ -8,26 +8,9 @@ fun main() {
 
     val p = Runtime.getRuntime().exec("kotlin -classpath Main.jar MainKt")
     p.waitFor()
-    val input = BufferedReader(
-            InputStreamReader(p.inputStream, StandardCharsets.UTF_8))
-            .lines()
-            .collect(Collectors.joining("\n"))
-    val error = BufferedReader(
-            InputStreamReader(p.errorStream, StandardCharsets.UTF_8))
-            .lines()
-            .collect(Collectors.joining("\n"))
+    val input = BufferedReader(InputStreamReader(p.inputStream, StandardCharsets.UTF_8))
+        .lines()
+        .collect(Collectors.joining("\n"))
 
-    println(input)
-
-    if (!expected.equals(input) || error.isNotBlank()) {
-        println("Test(hello-world): ERROR")
-        throw Exception(
-            "Expected: "
-                    + expected
-                    + ", but got: "
-                    + input
-                    + "\n"
-                    + error
-        )
-    }
+    assert(expected == input)
 }
