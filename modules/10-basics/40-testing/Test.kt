@@ -4,8 +4,7 @@ import java.nio.charset.StandardCharsets
 import java.util.stream.Collectors
 
 fun main() {
-    private const val EXPECTED_NUMBER = 420262531
-
+    val expected = 420262531
     val p = Runtime.getRuntime().exec("kotlin -classpath Main.jar MainKt")
     p.waitFor()
     val input = BufferedReader(
@@ -14,5 +13,5 @@ fun main() {
         .collect(Collectors.joining(""))
         .toInt()
 
-    assert(EXPECTED_NUMBER == input)
+    assert(expected == input)
 }

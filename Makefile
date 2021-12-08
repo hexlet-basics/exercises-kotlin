@@ -1,7 +1,7 @@
 -include /opt/basics/common/common.mk
 
 code-lint:
-	# java -jar /opt/detekt.jar
+	java -jar /opt/ktlint
 
 compile:
 	@(for i in $$(find . -type f -name Main.kt); do kotlinc $$(dirname $$i)/Main.kt -d  $$(dirname $$i)/Main.jar; done)
