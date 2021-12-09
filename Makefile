@@ -2,14 +2,15 @@
 
 code-lint:
 	java -jar /opt/ktlint
+	java -jar /opt/checkstyle.jar -c checkstyle.xml modules
 
 compile:
-	@(for i in $$(find . -type f -name Main.kt); do kotlinc $$(dirname $$i)/Main.kt -d  $$(dirname $$i)/Main.jar; done)
-	@(for i in $$(find . -type f -name Test.kt); do kotlinc $$(dirname $$i)/Test.kt -d  $$(dirname $$i)/Test.jar; done)
+	@(for i in $$(find . -type f -name Main.kt); do kotlinc $$(dirname $$i)/Main.kt ; done)
+	@(for i in $$(find . -type f -name Test.java); do javac $$(dirname $$i)/*.java ; done)
 
 clean:
-	@$$(find . -type f -name Main.jar -delete)
-	@$$(find . -type f -name Test.jar -delete)
+	@$$(find . -type f -name *.class -delete)
+	@$$(find . -type d -name META-INF -exec rm -r {} +)
 
 compose-setup: compose-build
 
