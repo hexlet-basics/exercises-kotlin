@@ -1,6 +1,6 @@
 FROM hexletbasics/base-image:latest
 
-RUN apt-get update && apt-get install -yq openjdk-11-jdk
+RUN apt-get update && apt-get install -yq openjdk-17-jdk
 
 ARG KOTLIN_VERSION=1.6.0
 RUN wget -q https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip
