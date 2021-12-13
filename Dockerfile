@@ -25,6 +25,8 @@ RUN curl -sL https://repo1.maven.org/maven2/org/assertj/assertj-core/${ASSERTJ_V
 RUN chmod 777 /opt/assertj.jar
 
 WORKDIR /exercises-kotlin
+
 ENV PATH=/exercises-kotlin/bin:$PATH
+ENV CLASSPATH=.:/opt/commons_lang3.jar:/opt/assertj.jar
 
 COPY . .
