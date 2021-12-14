@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 
 class Test {
     public static void main(final String[] args) {
-        final var expected = "9";
+        final var expected = "87";
 
         MainKt.main();
 
