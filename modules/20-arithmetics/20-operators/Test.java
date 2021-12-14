@@ -1,6 +1,5 @@
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.Serializable;
 import org.assertj.core.api.Assertions;
 
 class Test {
