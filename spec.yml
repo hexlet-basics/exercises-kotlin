@@ -4,4 +4,4 @@ language:
   docker_image: "hexletbasics/exercises-kotlin"
   extension: kt
   exercise_filename: Main.kt
-  exercise_test_filename: Test.kt
+  exercise_test_filename: Test.java
