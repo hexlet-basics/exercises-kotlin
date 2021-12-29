@@ -38,6 +38,3 @@ compose-schema-validate:
 ci-check:
 	docker-compose --file docker-compose.yml build
 	docker-compose --file docker-compose.yml up --abort-on-container-exit
-
-xz:
-	@(for i in $$(find modules/** -type f -name Makefile); do make test -C $$(dirname $$i) || exit 1; done)
