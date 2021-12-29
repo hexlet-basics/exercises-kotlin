@@ -2,6 +2,9 @@
 
 set -e
 
-kotlinc *.kt -no-reflect 2>&1
-javac Test.java 2>&1
-java Test 2>&1
+export EXERCISE=$(basename `pwd`)
+export BUILD_PATH=/exercises-kotlin/build/$EXERCISE
+
+java -jar /kotlinc/lib/kotlin-compiler.jar Main.kt -classpath $CLASSPATH -d $BUILD_PATH 2>&1
+[ ! -z $COMPILE_TESTS ] && javac -cp $CLASSPATH:$BUILD_PATH Test.java -d $BUILD_PATH 2>&1
+java -cp $CLASSPATH:$BUILD_PATH Test 2>&1
