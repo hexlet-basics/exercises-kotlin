@@ -1,8 +1,8 @@
 FROM hexletbasics/base-image:latest
 
-RUN apt-get update && apt-get install -yq openjdk-17-jdk
+# RUN apt-get update && apt-get install -yq openjdk-17-jdk
 
-ARG KOTLIN_VERSION=1.6.10
+ARG KOTLIN_VERSION=1.3.71
 RUN wget -q https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip
 RUN unzip -q kotlin-compiler-${KOTLIN_VERSION}.zip
 RUN rm kotlin-compiler-${KOTLIN_VERSION}.zip
@@ -19,6 +19,10 @@ RUN curl -sL https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/${C
 
 ARG ASSERTJ_VERSION=3.21.0
 RUN curl -sL https://repo1.maven.org/maven2/org/assertj/assertj-core/${ASSERTJ_VERSION}/assertj-core-${ASSERTJ_VERSION}.jar > /opt/assertj.jar
+
+RUN apt-get update
+
+RUN apt-get install -yq openjdk-8-jdk
 
 WORKDIR /exercises-kotlin
 

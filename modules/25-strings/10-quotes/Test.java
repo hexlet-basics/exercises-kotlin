@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 
 class Test {
     public static void main(final String[] args) {
-        final var expected = "\"Khal Drogo's favorite word is \"athjahakar\"\"";
+        final String expected = "\"Khal Drogo's favorite word is \"athjahakar\"\"";
 
         MainKt.main();
 
@@ -13,7 +13,7 @@ class Test {
 
         MainKt.main();
 
-        final var actual = out.toString().trim();
+        final String actual = out.toString().trim();
 
         Assertions.assertThat(actual).isEqualTo(expected);
     }
