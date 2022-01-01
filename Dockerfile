@@ -1,12 +1,15 @@
 FROM hexletbasics/base-image:latest
 
-# RUN apt-get update && apt-get install -yq openjdk-17-jdk
+ARG JAVA_VERSION=8
+RUN apt-get update && apt-get install -yq openjdk-${JAVA_VERSION}-jdk
+ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}-openjdk-amd64
 
 ARG KOTLIN_VERSION=1.3.71
-RUN wget -q https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip
-RUN unzip -q kotlin-compiler-${KOTLIN_VERSION}.zip
-RUN rm kotlin-compiler-${KOTLIN_VERSION}.zip
-ENV PATH=/kotlinc/bin:$PATH
+RUN wget -q https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip \
+  && unzip -q kotlin-compiler-${KOTLIN_VERSION}.zip \
+  && rm kotlin-compiler-${KOTLIN_VERSION}.zip
+ENV KOTLIN_HOME=/kotlinc
+ENV PATH=$KOTLIN_HOME/bin:$PATH
 
 ARG KTLINT_VERSION=0.43.2
 RUN curl -sL https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION}/ktlint > /opt/ktlint
@@ -20,14 +23,20 @@ RUN curl -sL https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/${C
 ARG ASSERTJ_VERSION=3.21.0
 RUN curl -sL https://repo1.maven.org/maven2/org/assertj/assertj-core/${ASSERTJ_VERSION}/assertj-core-${ASSERTJ_VERSION}.jar > /opt/assertj.jar
 
-RUN apt-get update
+ENV BUILD_PATH=/build
+ENV CLASSPATH=$BUILD_PATH/classes
+RUN mkdir -p $CLASSPATH
 
-RUN apt-get install -yq openjdk-8-jdk
+RUN cd $CLASSPATH && jar xf $JAVA_HOME/jre/lib/rt.jar
+RUN cd $CLASSPATH \
+  && for i in $(find $KOTLIN_HOME/lib -type f -name *.jar); do jar xf $i; done
+RUN cd $CLASSPATH \
+  && jar xf /opt/commons_lang3.jar \
+  && jar xf /opt/assertj.jar
 
 WORKDIR /exercises-kotlin
 
 ENV PATH=/exercises-kotlin/bin:$PATH
-ENV CLASSPATH=/opt/commons_lang3.jar:/opt/assertj.jar
 
 COPY . .
 
