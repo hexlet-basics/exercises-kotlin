@@ -1,5 +1,7 @@
 FROM hexletbasics/base-image:latest
 
+# NOTE: связка jdk_8 - kotlin_1.3.71 работает быстрее чем актуальные версии.
+# Для упражнений на КБ нет необходимости использовать самые последние версии.
 ARG JAVA_VERSION=8
 RUN apt-get update && apt-get install -yq openjdk-${JAVA_VERSION}-jdk
 ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}-openjdk-amd64
@@ -27,6 +29,8 @@ ENV BUILD_PATH=/build
 ENV CLASSPATH=$BUILD_PATH/classes
 RUN mkdir -p $CLASSPATH
 
+# NOTE: распаковка jar файлов в процессе компиляции требует ресурсов.
+# Подготоваливаем директорию с уже распакованными файлами классов
 RUN cd $CLASSPATH && jar xf $JAVA_HOME/jre/lib/rt.jar
 RUN cd $CLASSPATH \
   && for i in $(find $KOTLIN_HOME/lib -type f -name *.jar); do jar xf $i; done
@@ -40,4 +44,6 @@ ENV PATH=/exercises-kotlin/bin:$PATH
 
 COPY . .
 
+# NOTE: компиляция решения и файла с тестами.
+# Это позволит не компилировать заново файлы с тестами (они не не меняются) 
 RUN COMPILE_TESTS=true make test
