@@ -44,6 +44,9 @@ ENV PATH=/exercises-kotlin/bin:$PATH
 
 COPY . .
 
+# NOTE: компилируем утилиты для тестов
+RUN cd src && javac *.java -d $CLASSPATH
+
 # NOTE: компиляция решения и файла с тестами.
 # Это позволит не компилировать заново файлы с тестами (они не не меняются) 
 RUN COMPILE_TESTS=1 make test

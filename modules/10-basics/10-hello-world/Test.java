@@ -1,6 +1,5 @@
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import org.assertj.core.api.Assertions;
+import static hexlet.io.TestUtils.getStandartOutput;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class Test {
     public static void main(final String[] args) {
@@ -8,13 +7,8 @@ class Test {
 
         MainKt.main();
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
+        String actual = getStandartOutput(() -> MainKt.main()).trim();
 
-        MainKt.main();
-
-        final String actual = out.toString().trim();
-
-        Assertions.assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualTo(expected);
     }
 }
