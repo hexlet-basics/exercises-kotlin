@@ -6,3 +6,6 @@ services:
   exercises:
     volumes:
       - .:/exercises-kotlin
+    environment:
+      # NOTE: нужно только для разработки тестов
+      COMPILE_TESTS: 1

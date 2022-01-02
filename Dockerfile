@@ -46,4 +46,4 @@ COPY . .
 
 # NOTE: компиляция решения и файла с тестами.
 # Это позволит не компилировать заново файлы с тестами (они не не меняются) 
-RUN COMPILE_TESTS=true make test
+RUN COMPILE_TESTS=1 make test
