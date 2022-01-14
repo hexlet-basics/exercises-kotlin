@@ -1,2 +1,2 @@
 test:
-	@ test.sh
+	@ bash -c 'time test.sh'
