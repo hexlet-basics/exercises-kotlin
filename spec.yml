@@ -5,3 +5,6 @@ language:
   extension: kt
   exercise_filename: Main.kt
   exercise_test_filename: Test.java
+  learn_as: first_language
+  progress: in_development
+  name: Kotlin
