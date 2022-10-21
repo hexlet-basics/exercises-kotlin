@@ -1,5 +1,5 @@
 fun main() {
     // BEGIN
-    print(81 / 9)
+    println(81 / 9)
     // END
 }
