@@ -1,0 +1,9 @@
+name: Привет, Мир!
+tips:
+  - |
+    [Что такое компилятор?](https://guides.hexlet.io/compiler/)
+  - >
+    [Что такое
+    IDE?](https://ru.wikipedia.org/wiki/Интегрированная_среда_разработки)
+  - |
+    [Kotlin](https://kotlinlang.org/)
