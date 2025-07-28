@@ -1,9 +1,7 @@
 ---
 
 version: '3'
-
 services:
   exercises:
     build: .
-    image: hexletbasics/exercises-kotlin:cached
     command: make check

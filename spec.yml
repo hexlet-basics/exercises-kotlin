@@ -1,7 +1,7 @@
 ---
 
 language:
-  docker_image: "hexletbasics/exercises-kotlin"
+  docker_image: "ghcr.io/hexlet-basics/exercises-kotlin"
   extension: kt
   exercise_filename: Main.kt
   exercise_test_filename: Test.java
