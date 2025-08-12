@@ -16,7 +16,9 @@ print(3 + 4)
 
 После запуска на экране появится результат:
 
-<pre class='hexlet-basics-output'>7</pre>
+```text
+7
+```
 
 Кроме сложения доступны следующие операции:
 
@@ -32,7 +34,7 @@ println(8 / 2)
 println(3 * 3 * 3)
 ```
 
-<pre class='hexlet-basics-output'>
+```text
 4
 27
-</pre>
+```
