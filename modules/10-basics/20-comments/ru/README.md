@@ -10,7 +10,7 @@
 
 так и на одной строчке с кодом:
 
-```kotlin
+```kts
 print("Hello!") // For Lannisters!
 ```
 
