@@ -74,7 +74,7 @@ Chiswyck
 
 2. Помните, что строка может содержать один символ или вообще ноль символов. А еще строка может содержать только `\n`. Проанализируйте следующий пример:
 
-    ```kotlin
+    ```kts
     println("\n")
     println("Dunsen")
     ```
@@ -91,7 +91,7 @@ Chiswyck
 
     Ещё пример кода:
 
-    ```kotlin
+    ```kts
     println("Polliver")
     println("Gregor Clegane")
     println()
