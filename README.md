@@ -1,10 +1,10 @@
 # exercises-kotlin
 
-[![Github Actions Status](../../workflows/Docker/badge.svg)](../../actions)
+[![Github Actions Status](https://github.com/hexlet-basics/exercises-kotlin/actions/workflows/Docker.yml/badge.svg)](https://github.com/hexlet-basics/exercises-kotlin/actions)
 
 ## How to contribute
 
-* Discuss the project on Telegram: https://t.me/hexletcommunity/12
+- Discuss the project on Telegram: <https://t.me/hexletcommunity/12>
 
 ## Develop
 
