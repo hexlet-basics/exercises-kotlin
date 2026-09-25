@@ -3,7 +3,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class Test {
     public static void main(final String[] args) {
-        final String expected = "87";
+        final String expected = "87\n29";
 
         MainKt.main();
 
