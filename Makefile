@@ -1,32 +1,22 @@
 -include /opt/basics/common/common.mk
 
-code-lint:
-	java -jar /opt/ktlint
-	java -jar /opt/checkstyle.jar -c checkstyle.xml modules
+.PHONY: code-lint compose compose-build compose-bash compose-test ci-check
 
-compose-setup: compose-build
+code-lint:
+	ktlint 'modules/**/*.kt' 'lib/**/*.kt'
 
 compose:
-	docker-compose up
+	docker compose up
 
 compose-build:
-	docker-compose build
+	docker compose build
 
 compose-bash:
-	docker-compose run --rm exercises bash
+	docker compose run --rm exercises bash
 
 compose-test:
-	docker-compose run --rm exercises make test
-
-compose-code-lint:
-	docker-compose run --rm exercises make code-lint
-
-compose-description-lint:
-	docker-compose run --rm exercises make description-lint
-
-compose-schema-validate:
-	docker-compose run --rm exercises make schema-validate
+	docker compose run --rm exercises make test
 
 ci-check:
-	docker-compose --file docker-compose.yml build
-	docker-compose --file docker-compose.yml up --abort-on-container-exit
+	docker compose --file docker-compose.yml build
+	docker compose --file docker-compose.yml run --rm exercises make check

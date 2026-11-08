@@ -1,3 +1,5 @@
 fun main() {
-    println("Hello, World!")
+    // BEGIN
+    println("Ready for Kotlin!")
+    // END
 }

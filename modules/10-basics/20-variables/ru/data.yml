@@ -1,0 +1,7 @@
+---
+name: Переменные и типы
+tips:
+  - |
+    [Переменные в Kotlin](https://kotlinlang.org/docs/basic-syntax.html#variables)
+  - |
+    [Базовые типы](https://kotlinlang.org/docs/types-overview.html)

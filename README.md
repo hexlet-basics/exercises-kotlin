@@ -1,32 +1,41 @@
-# exercises-kotlin
+# Kotlin как второй язык
 
-[![Github Actions Status](https://github.com/hexlet-basics/exercises-kotlin/actions/workflows/Docker.yml/badge.svg)](https://github.com/hexlet-basics/exercises-kotlin/actions)
+Курс Code Basics для человека, который уже работает с функциями, условиями, циклами, строками и коллекциями на любом языке. Материалы и упражнения находятся в `modules/`, русские тексты в каталогах `ru/` каждого урока.
 
-## How to contribute
+## Проверка в контейнере
 
-- Discuss the project on Telegram: <https://t.me/hexletcommunity/12>
-
-## Develop
+Полная проверка собирает образ с Kotlin и JDK, проверяет метаданные, разметку и форматирование, затем выполняет эталонные решения.
 
 ```bash
-# setup
-make
-# run
-make compose
-# check
 make ci-check
-
-# run tests
-make compose-test
-
-# run linters and validators
-make compose-code-lint
-make compose-description-lint
-make compose-schema-validate
 ```
 
-##
+Для запуска отдельного задания используется каталог его урока.
 
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/assets/master/images/hexlet_logo128.png)](https://hexlet.io/?utm_source=github&utm_medium=link&utm_campaign=exercises-kotlin)
+```bash
+docker compose run --rm exercises make -C modules/20-null-safety/10-nullable-types test
+```
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet](https://hexlet.io/?utm_source=github&utm_medium=link&utm_campaign=exercises-kotlin).
+Перед каждой проверкой раннер очищает каталог сборки. Он компилирует `Main.kt`, готовые файлы `support/`, `Test.kt` и общий помощник одним запуском Kotlin, затем выполняет тесты. Компилятор проверяет типы и имена по текущему решению учащегося.
+
+## Проверка без Docker
+
+Для отдельного урока нужны JDK 25 и Kotlin из версии, указанной в Dockerfile. Переменная `KOTLIN_HOME` указывает на каталог компилятора.
+
+```bash
+export KOTLIN_HOME=/path/to/kotlinc
+export PATH="$KOTLIN_HOME/bin:$PWD/bin:$PATH"
+make -C modules/20-null-safety/10-nullable-types test
+```
+
+Результаты сборки по умолчанию находятся во временном каталоге. Переменная `BUILD_PATH` позволяет выбрать другой каталог. Компилятор использует первый уровень JIT и последовательный сборщик мусора для коротких отдельных запусков. В контейнере JDK 25 использует заранее подготовленный AOT-кеш классов компилятора. Он создаётся при сборке инструментов. Правила языка и диагностика ошибок сохраняются.
+
+## Устройство упражнения
+
+Ученик редактирует `Main.kt`. Маркеры `// BEGIN` и `// END` отделяют эталонное решение, которое платформа удаляет при подготовке заготовки. Проверки в `Test.kt` используют функции из `lib/TestSupport.kt`. Файлы `support/` предоставляют готовое окружение и сохраняются при подстановке ученического решения.
+
+У каждого урока есть теория `ru/README.md`, условие `ru/EXERCISE.md`, метаданные `ru/data.yml` и Makefile. Тесты проверяют поведение на нескольких входах, включая границы и отсутствие значения, когда этого требует условие.
+
+## Участие
+
+Вопросы по материалам обсуждаются в [сообществе Хекслета](https://t.me/hexletcommunity/12).

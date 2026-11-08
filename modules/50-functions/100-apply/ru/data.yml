@@ -1,0 +1,5 @@
+---
+name: Настройка объекта через apply
+tips:
+  - |
+    [Документация Kotlin](https://kotlinlang.org/docs/scope-functions.html)

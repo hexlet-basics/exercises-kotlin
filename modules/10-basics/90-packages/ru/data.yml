@@ -1,0 +1,7 @@
+---
+name: Пакеты и импорт
+tips:
+  - |
+    [Пакеты и импорты](https://kotlinlang.org/docs/packages.html)
+  - |
+    [Видимость объявлений](https://kotlinlang.org/docs/visibility-modifiers.html)

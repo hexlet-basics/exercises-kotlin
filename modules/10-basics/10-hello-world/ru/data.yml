@@ -1,10 +1,7 @@
 ---
-name: Привет, Мир!
+name: Введение
 tips:
   - |
-    [Что такое компилятор?](https://guides.hexlet.io/compiler/)
-  - >
-    [Что такое
-    IDE?](https://ru.wikipedia.org/wiki/Интегрированная_среда_разработки)
+    [Обзор синтаксиса Kotlin](https://kotlinlang.org/docs/basic-syntax.html)
   - |
-    [Kotlin](https://kotlinlang.org/)
+    [Компилятор командной строки](https://kotlinlang.org/docs/command-line.html)

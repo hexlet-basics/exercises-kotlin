@@ -1,0 +1,5 @@
+---
+name: Проверка и приведение типов
+tips:
+  - |
+    [Документация Kotlin](https://kotlinlang.org/docs/typecasts.html)

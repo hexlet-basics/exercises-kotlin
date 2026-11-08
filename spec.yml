@@ -4,7 +4,7 @@ language:
   docker_image: "ghcr.io/hexlet-basics/exercises-kotlin"
   extension: kt
   exercise_filename: Main.kt
-  exercise_test_filename: Test.java
-  learn_as: first_language
-  progress: in_development
+  exercise_test_filename: Test.kt
+  learn_as: second_language
+  progress: completed
   name: Kotlin

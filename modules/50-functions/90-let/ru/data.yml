@@ -1,0 +1,5 @@
+---
+name: Преобразование значения через let
+tips:
+  - |
+    [Документация Kotlin](https://kotlinlang.org/docs/scope-functions.html)

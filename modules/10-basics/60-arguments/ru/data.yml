@@ -1,0 +1,5 @@
+---
+name: Именованные аргументы
+tips:
+  - |
+    [Именованные аргументы и значения по умолчанию](https://kotlinlang.org/docs/functions.html#named-arguments)

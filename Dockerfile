@@ -1,52 +1,51 @@
-FROM hexletbasics/base-image:latest
+FROM eclipse-temurin:25-jdk AS java
 
-# NOTE: связка jdk_8 - kotlin_1.3.71 работает быстрее чем актуальные версии.
-# Для упражнений на КБ нет необходимости использовать самые последние версии.
-ARG JAVA_VERSION=8
-RUN apt-get update && apt-get install -yq openjdk-${JAVA_VERSION}-jdk
-ENV JAVA_HOME=/usr/lib/jvm/java-${JAVA_VERSION}-openjdk-amd64
+FROM hexletbasics/base-image:latest AS toolchain
 
-ARG KOTLIN_VERSION=1.3.71
-RUN wget -q https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip \
-  && unzip -q kotlin-compiler-${KOTLIN_VERSION}.zip \
-  && rm kotlin-compiler-${KOTLIN_VERSION}.zip
-ENV KOTLIN_HOME=/kotlinc
-ENV PATH=$KOTLIN_HOME/bin:$PATH
+COPY --from=java /opt/java/openjdk /opt/java/openjdk
+ENV JAVA_HOME=/opt/java/openjdk
+ENV KOTLIN_HOME=/opt/kotlinc
+ENV PATH="/opt/java/openjdk/bin:/opt/kotlinc/bin:/exercises-kotlin/bin:$PATH"
 
-ARG KTLINT_VERSION=0.43.2
-RUN curl -sL https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION}/ktlint > /opt/ktlint
+ARG KOTLIN_VERSION=2.4.21
+RUN curl --fail --location --retry 3 \
+      "https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip" \
+      --output /tmp/kotlin.zip \
+  && unzip -q /tmp/kotlin.zip -d /opt \
+  && rm /tmp/kotlin.zip
 
-ARG CHECKSTYLE_VERSION=9.2
-RUN curl -sL https://github.com/checkstyle/checkstyle/releases/download/checkstyle-${CHECKSTYLE_VERSION}/checkstyle-${CHECKSTYLE_VERSION}-all.jar > /opt/checkstyle.jar
+ARG KTLINT_VERSION=1.8.0
+RUN curl --fail --location --retry 3 \
+      "https://github.com/ktlint/ktlint/releases/download/${KTLINT_VERSION}/ktlint" \
+      --output /opt/ktlint.jar \
+  && printf '#!/bin/sh\nexec java -jar /opt/ktlint.jar "$@"\n' > /usr/local/bin/ktlint \
+  && chmod +x /usr/local/bin/ktlint
 
-ARG COMMONS_LANG3_VERSION=3.12.0
-RUN curl -sL https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/${COMMONS_LANG3_VERSION}/commons-lang3-${COMMONS_LANG3_VERSION}.jar > /opt/commons_lang3.jar
+# Avoid rescanning the JDK module image and dependency archives on each submission.
+RUN mkdir -p /opt/kotlin-classpath \
+  && jimage extract --dir /tmp/java-modules "$JAVA_HOME/lib/modules" \
+  && cp -R /tmp/java-modules/java.base/. /opt/kotlin-classpath/ \
+  && cd /opt/kotlin-classpath \
+  && jar xf /opt/kotlinc/lib/kotlin-stdlib.jar \
+  && jar xf /opt/kotlinc/lib/annotations-13.0.jar \
+  && rm -rf /tmp/java-modules
 
-ARG ASSERTJ_VERSION=3.21.0
-RUN curl -sL https://repo1.maven.org/maven2/org/assertj/assertj-core/${ASSERTJ_VERSION}/assertj-core-${ASSERTJ_VERSION}.jar > /opt/assertj.jar
+ENV KOTLIN_FAST_CLASSPATH=/opt/kotlin-classpath
 
-ENV BUILD_PATH=/build
-ENV CLASSPATH=$BUILD_PATH/classes
-RUN mkdir -p $CLASSPATH
+# Train the compiler once per toolchain and architecture, independently of lessons.
+COPY bin/compile.sh /usr/local/bin/kotlin-compile
+COPY lib/CompilerWarmup.kt /tmp/kotlin-warmup/CompilerWarmup.kt
+RUN KOTLIN_AOT_CACHE_OUTPUT=/opt/kotlin-compiler.aot \
+      /usr/local/bin/kotlin-compile /tmp/kotlin-warmup/CompilerWarmup.kt \
+      -jvm-target 25 -d /tmp/kotlin-warmup/classes \
+  && rm -rf /tmp/kotlin-warmup
 
-# NOTE: распаковка jar файлов в процессе компиляции требует ресурсов.
-# Подготоваливаем директорию с уже распакованными файлами классов
-RUN cd $CLASSPATH && jar xf $JAVA_HOME/jre/lib/rt.jar
-RUN cd $CLASSPATH \
-  && for i in $(find $KOTLIN_HOME/lib -type f -name *.jar); do jar xf $i; done
-RUN cd $CLASSPATH \
-  && jar xf /opt/commons_lang3.jar \
-  && jar xf /opt/assertj.jar
+ENV KOTLIN_AOT_CACHE=/opt/kotlin-compiler.aot
+
+FROM toolchain AS course
 
 WORKDIR /exercises-kotlin
-
-ENV PATH=/exercises-kotlin/bin:$PATH
-
 COPY . .
 
-# NOTE: компилируем утилиты для тестов
-RUN cd src && javac *.java -d $CLASSPATH
-
-# NOTE: компиляция решения и файла с тестами.
-# Это позволит не компилировать заново файлы с тестами (они не не меняются) 
-RUN COMPILE_TESTS=1 make test
+ENV BUILD_PATH=/build/kotlin
+RUN make test

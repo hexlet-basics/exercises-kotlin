@@ -1,0 +1,5 @@
+---
+name: Nullable-типы
+tips:
+  - |
+    [Документация Kotlin](https://kotlinlang.org/docs/null-safety.html)

@@ -1,0 +1,7 @@
+---
+name: Строки и шаблоны
+tips:
+  - |
+    [Строки в Kotlin](https://kotlinlang.org/docs/strings.html)
+  - |
+    [Char и кодовые единицы UTF-16](https://kotlinlang.org/docs/characters.html)

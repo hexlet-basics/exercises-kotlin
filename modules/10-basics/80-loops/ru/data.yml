@@ -1,0 +1,7 @@
+---
+name: Циклы и диапазоны
+tips:
+  - |
+    [Циклы в Kotlin](https://kotlinlang.org/docs/control-flow.html#for-loops)
+  - |
+    [Диапазоны и последовательности чисел](https://kotlinlang.org/docs/ranges.html)

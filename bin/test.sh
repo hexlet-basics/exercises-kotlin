@@ -1,24 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# При возникновении ошибки в любой из строк скрипта, выполнение будет остановлено с возникшей ошибкой
-set -e
+test_bin_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+course_dir=$(cd -- "$test_bin_dir/.." && pwd)
+compiler=${KOTLINC_BIN:-$test_bin_dir/compile.sh}
+java_bin=${JAVA_BIN:-java}
+kotlin_home=${KOTLIN_HOME:-$(cd -- "$(dirname -- "$(command -v kotlinc)")/.." && pwd)}
+build_root=${BUILD_PATH:-${TMPDIR:-/tmp}/code-basics-kotlin}
+lesson_key=$(basename -- "$(dirname -- "$PWD")")-$(basename -- "$PWD")
+lesson_build="$build_root/$lesson_key"
 
-export EXERCISE=$(basename `pwd`)
-# Путь к директории с скомпилированными классами упражнения
-export BUILD_EXERCISE_PATH=$BUILD_PATH/$EXERCISE
-# Отключаем проверку скоспилированных классов (влияет на время запуска команды java)
-export JAVA_OPTS="-noverify"
-# Отключаем всё, что влияет на скорость старта и работы компилятора kotlin: проверка версии jdk
-# оптимизации, дополнительная обработка предупрежедний, использование готовых jar файлов с jdk, stdlib и reflect.
-# Используем ранее подготовленную директорию с распакованными классами
-export COMPILER_OPTS="-nowarn -Xeffect-system -Xno-optimize -Xskip-runtime-version-check -no-jdk -no-reflect -no-stdlib -classpath $CLASSPATH -d $BUILD_EXERCISE_PATH"
+# Resolve the tests against this submission, including its actual JVM layout.
+rm -rf -- "$lesson_build"
+mkdir -p -- "$lesson_build"
+sources=(Main.kt "$course_dir/lib/TestSupport.kt" Test.kt)
+if [[ -d support ]]; then
+    while IFS= read -r -d '' source_file; do
+        sources+=("$source_file")
+    done < <(find support -type f -name '*.kt' -print0)
+fi
 
-# Обычно эту операцию выполняет исполняемый файл kotlinc. Поскольку мы его не используем - удалем файл вручную перед компиляцией.
-rm -f $BUILD_EXERCISE_PATH/MainKt.class
-# В штатном исполняемом файле kotlinc зашито использование jar файлов.
-# Обходим это ограничение, используя напрямую классы нужные для компиляции
-java $JAVA_OPTS org.jetbrains.kotlin.preloading.Preloader org.jetbrains.kotlin.cli.jvm.K2JVMCompiler $COMPILER_OPTS Main.kt 2>&1
-# Компиляция файла с тестами нужна только при сборке
-[ ! -z $COMPILE_TESTS ] && javac -cp $CLASSPATH:$BUILD_EXERCISE_PATH Test.java -d $BUILD_EXERCISE_PATH 2>&1
-# Запускаем тесты
-java -cp $CLASSPATH:$BUILD_EXERCISE_PATH Test 2>&1
+"$compiler" "${sources[@]}" -jvm-target 25 -d "$lesson_build"
+exec "$java_bin" -cp "$lesson_build:$kotlin_home/lib/kotlin-stdlib.jar" Test
