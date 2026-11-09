@@ -8,10 +8,17 @@ jvm_args=(
     --enable-native-access=ALL-UNNAMED --sun-misc-unsafe-memory-access=allow
 )
 
+# The AOT cache remembers the exact classpath order. A "lib/*" wildcard follows
+# the directory order of the filesystem, which differs between the build host
+# and the platform, so the jars are listed explicitly in a sorted order.
+compiler_jars=$(LC_ALL=C; printf '%s:' "$kotlin_home"/lib/*.jar)
+compiler_jars=${compiler_jars%:}
+
 if [[ -n ${KOTLIN_AOT_CACHE_OUTPUT:-} ]]; then
     jvm_args+=("-XX:AOTCacheOutput=$KOTLIN_AOT_CACHE_OUTPUT")
 elif [[ -n ${KOTLIN_AOT_CACHE:-} ]]; then
-    jvm_args+=("-XX:AOTCache=$KOTLIN_AOT_CACHE" -XX:AOTMode=on)
+    # auto: a stale cache costs startup time instead of failing every submission.
+    jvm_args+=("-XX:AOTCache=$KOTLIN_AOT_CACHE" -XX:AOTMode=auto)
 fi
 
 if [[ -n ${KOTLIN_FAST_CLASSPATH:-} ]]; then
@@ -31,6 +38,6 @@ fi
 # One-shot compilation benefits from C1 without the cost of higher JIT tiers.
 exec "${JAVA_BIN:-java}" \
     "${jvm_args[@]}" \
-    -cp "$kotlin_home/lib/*" \
+    -cp "$compiler_jars" \
     org.jetbrains.kotlin.cli.jvm.K2JVMCompiler \
     -kotlin-home "$kotlin_home" "${compiler_args[@]}"
