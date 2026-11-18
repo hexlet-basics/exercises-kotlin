@@ -21,4 +21,4 @@ if [[ -d support ]]; then
 fi
 
 "$compiler" "${sources[@]}" -jvm-target 25 -d "$lesson_build"
-exec "$java_bin" -cp "$lesson_build:$kotlin_home/lib/kotlin-stdlib.jar" Test
+exec "$java_bin" -ea -cp "$lesson_build:$kotlin_home/lib/kotlin-stdlib.jar" Test

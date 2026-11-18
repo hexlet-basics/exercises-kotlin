@@ -1,19 +1,19 @@
 fun testSolution() {
     val first = createNotification(" News ", " Ready ", true)
-    expectEquals("News", first.title)
-    expectEquals("Ready", first.message)
-    expectEquals(true, first.urgent)
+    assert(first.title == "News")
+    assert(first.message == "Ready")
+    assert(first.urgent == true)
     val second = createNotification(" Other ", " Done ", false)
-    expectEquals("Other", second.title)
-    expectEquals("Done", second.message)
-    expectEquals(false, second.urgent)
-    expectTrue(first !== second)
-    expectEquals("News", first.title)
+    assert(second.title == "Other")
+    assert(second.message == "Done")
+    assert(second.urgent == false)
+    assert(first !== second)
+    assert(first.title == "News")
     second.title = "Changed"
-    expectEquals("News", first.title)
+    assert(first.title == "News")
     val blank = createNotification("  ", "", false)
-    expectEquals("", blank.title)
-    expectEquals("", blank.message)
+    assert(blank.title == "")
+    assert(blank.message == "")
 }
 
 object Test {

@@ -1,15 +1,15 @@
 fun testSolution() {
-    expectEquals(75, parsePercent(" 75 "))
-    expectEquals(0, parsePercent("0"))
-    expectEquals(100, parsePercent("100"))
-    expectEquals(42, parsePercent("+42"))
-    expectEquals(null, parsePercent("-1"))
-    expectEquals(null, parsePercent("101"))
-    expectEquals(null, parsePercent("75%"))
-    expectEquals(null, parsePercent(""))
-    expectEquals(null, parsePercent("   "))
-    expectEquals(null, parsePercent("1.5"))
-    expectEquals(null, parsePercent("999999999999999999999"))
+    assert(parsePercent(" 75 ") == 75)
+    assert(parsePercent("0") == 0)
+    assert(parsePercent("100") == 100)
+    assert(parsePercent("+42") == 42)
+    assert(parsePercent("-1") == null)
+    assert(parsePercent("101") == null)
+    assert(parsePercent("75%") == null)
+    assert(parsePercent("") == null)
+    assert(parsePercent("   ") == null)
+    assert(parsePercent("1.5") == null)
+    assert(parsePercent("999999999999999999999") == null)
 }
 
 object Test {

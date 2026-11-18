@@ -1,10 +1,10 @@
 fun testSolution() {
-    expectEquals(3, labelLength("  a b  "))
-    expectEquals(null, labelLength(null))
-    expectEquals(0, labelLength(""))
-    expectEquals(0, labelLength("   "))
-    expectEquals(5, labelLength(" abcde "))
-    expectEquals(3, labelLength(" x\ny "))
+    assert(labelLength("  a b  ") == 3)
+    assert(labelLength(null) == null)
+    assert(labelLength("") == 0)
+    assert(labelLength("   ") == 0)
+    assert(labelLength(" abcde ") == 5)
+    assert(labelLength(" x\ny ") == 3)
 }
 
 object Test {

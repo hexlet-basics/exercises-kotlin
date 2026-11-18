@@ -1,17 +1,17 @@
 fun testSolution() {
     val stock = mutableMapOf("book" to 4, "lamp" to 10)
-    expectEquals(7, updateQuantity(stock, "book", 3))
-    expectEquals(mapOf("book" to 7, "lamp" to 10), stock)
-    expectEquals(2, updateQuantity(stock, "pen", 2))
-    expectEquals(0, updateQuantity(stock, "book", -7))
-    expectTrue(stock.containsKey("book"))
-    expectEquals(mapOf("book" to 0, "lamp" to 10, "pen" to 2), stock)
-    expectEquals(10, updateQuantity(stock, "lamp", 0))
+    assert(updateQuantity(stock, "book", 3) == 7)
+    assert(stock == mapOf("book" to 7, "lamp" to 10))
+    assert(updateQuantity(stock, "pen", 2) == 2)
+    assert(updateQuantity(stock, "book", -7) == 0)
+    assert(stock.containsKey("book"))
+    assert(stock == mapOf("book" to 0, "lamp" to 10, "pen" to 2))
+    assert(updateQuantity(stock, "lamp", 0) == 10)
     val empty = mutableMapOf<String, Int>()
-    expectEquals(0, updateQuantity(empty, "new", 0))
-    expectEquals(mapOf("new" to 0), empty)
-    expectEquals(5, updateQuantity(empty, "new", 5))
-    expectEquals(mapOf("new" to 5), empty)
+    assert(updateQuantity(empty, "new", 0) == 0)
+    assert(empty == mapOf("new" to 0))
+    assert(updateQuantity(empty, "new", 5) == 5)
+    assert(empty == mapOf("new" to 5))
 }
 
 object Test {

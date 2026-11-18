@@ -1,22 +1,22 @@
 fun testSolution() {
     val invalidTotal = expectThrows<IllegalArgumentException> { TicketBatch(-1) }
-    expectTrue(!invalidTotal.message.isNullOrBlank())
+    assert(!invalidTotal.message.isNullOrBlank())
     val empty = TicketBatch(0)
-    expectEquals(0, empty.remaining)
+    assert(empty.remaining == 0)
     expectThrows<IllegalStateException> { empty.take(1) }
-    expectEquals(0, empty.remaining)
+    assert(empty.remaining == 0)
     val batch = TicketBatch(5)
     batch.take(2)
-    expectEquals(3, batch.remaining)
+    assert(batch.remaining == 3)
     val invalidCount = expectThrows<IllegalArgumentException> { batch.take(0) }
-    expectTrue(!invalidCount.message.isNullOrBlank())
+    assert(!invalidCount.message.isNullOrBlank())
     expectThrows<IllegalArgumentException> { batch.take(-4) }
-    expectEquals(3, batch.remaining)
+    assert(batch.remaining == 3)
     val shortage = expectThrows<IllegalStateException> { batch.take(4) }
-    expectTrue(!shortage.message.isNullOrBlank())
-    expectEquals(3, batch.remaining)
+    assert(!shortage.message.isNullOrBlank())
+    assert(batch.remaining == 3)
     batch.take(3)
-    expectEquals(0, batch.remaining)
+    assert(batch.remaining == 0)
 }
 
 object Test {

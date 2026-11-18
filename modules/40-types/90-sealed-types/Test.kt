@@ -1,14 +1,14 @@
 fun testSolution() {
     val ready: LoadState = Ready(4)
-    expectEquals("items=4", statusText(ready))
-    expectEquals("items=0", statusText(Ready(0)))
-    expectEquals("items=123", statusText(Ready(123)))
-    expectEquals("loading", statusText(Loading))
-    expectEquals("missing", statusText(Missing))
-    expectEquals("items=1", statusText(Ready(1)))
-    expectEquals("loading", statusText(Loading))
-    expectEquals(Ready(4), Ready(4))
-    expectEquals(4, Ready(4).count)
+    assert(statusText(ready) == "items=4")
+    assert(statusText(Ready(0)) == "items=0")
+    assert(statusText(Ready(123)) == "items=123")
+    assert(statusText(Loading) == "loading")
+    assert(statusText(Missing) == "missing")
+    assert(statusText(Ready(1)) == "items=1")
+    assert(statusText(Loading) == "loading")
+    assert(Ready(4) == Ready(4))
+    assert(Ready(4).count == 4)
 }
 
 object Test {

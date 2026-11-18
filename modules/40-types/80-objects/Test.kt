@@ -1,17 +1,17 @@
 fun testSolution() {
     val source: NameSource = DefaultName
-    expectEquals("Guest", source.name())
-    expectTrue(source === DefaultName)
-    expectEquals("Ada", Member.fromText("  Ada ").name)
-    expectEquals("Guest", Member.fromText("   ").name)
-    expectEquals("Guest", Member.fromText("").name)
-    expectEquals("Ada Lovelace", Member.fromText(" Ada Lovelace ").name)
-    expectEquals("kOtLiN", Member.fromText("kOtLiN").name)
+    assert(source.name() == "Guest")
+    assert(source === DefaultName)
+    assert(Member.fromText("  Ada ").name == "Ada")
+    assert(Member.fromText("   ").name == "Guest")
+    assert(Member.fromText("").name == "Guest")
+    assert(Member.fromText(" Ada Lovelace ").name == "Ada Lovelace")
+    assert(Member.fromText("kOtLiN").name == "kOtLiN")
     val first = Member.fromText("Ada")
     val second = Member.fromText("Ada")
-    expectEquals(first.name, second.name)
-    expectTrue(first !== second)
-    expectEquals("Direct", Member("Direct").name)
+    assert(second.name == first.name)
+    assert(first !== second)
+    assert(Member("Direct").name == "Direct")
 }
 
 object Test {

@@ -36,3 +36,9 @@ private fun <T : Any> findWarmupValue(
     }
     return null
 }
+
+private fun checkWarmup(words: List<String>) {
+    val counts = countWarmupWords(words)
+    assert(counts["kotlin"] == 2) { "kotlin is counted twice" }
+    assert(warmupLabel(WarmupFound(WarmupRecord("kotlin", 2))) == "kotlin:2")
+}

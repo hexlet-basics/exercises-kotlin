@@ -1,5 +1,5 @@
 fun testSolution() {
-    expectEquals("Ready for Kotlin!\n", captureOutput { main() })
+    assert(captureOutput { main() } == "Ready for Kotlin!\n")
 }
 
 object Test {

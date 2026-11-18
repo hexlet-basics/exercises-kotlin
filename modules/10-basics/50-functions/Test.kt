@@ -1,10 +1,10 @@
 fun testSolution() {
-    expectEquals(0.0, minutesToHours(0), "zero")
-    expectEquals(1.0, minutesToHours(60), "one hour")
-    expectEquals(1.5, minutesToHours(90), "fractional hours")
-    expectEquals(0.25, minutesToHours(15), "quarter hour")
-    expectEquals(-0.5, minutesToHours(-30), "negative offset")
-    expectEquals(24.0, minutesToHours(1440), "one day")
+    assert(minutesToHours(0) == 0.0) { "zero" }
+    assert(minutesToHours(60) == 1.0) { "one hour" }
+    assert(minutesToHours(90) == 1.5) { "fractional hours" }
+    assert(minutesToHours(15) == 0.25) { "quarter hour" }
+    assert(minutesToHours(-30) == -0.5) { "negative offset" }
+    assert(minutesToHours(1440) == 24.0) { "one day" }
 }
 
 object Test {

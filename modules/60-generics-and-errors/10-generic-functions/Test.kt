@@ -5,16 +5,16 @@ data class Sample(
 
 fun testSolution() {
     val number: Int? = findLastMatching(listOf(2, 7, 4, 9)) { it % 2 == 0 }
-    expectEquals(4, number)
+    assert(number == 4)
     val text: String? = findLastMatching(listOf("alpha", "b", "gamma")) { it.length > 2 }
-    expectEquals("gamma", text)
-    expectEquals(null, findLastMatching(listOf(1, 3)) { it % 2 == 0 })
-    expectEquals(null, findLastMatching<Int>(listOf()) { it > 0 })
+    assert(text == "gamma")
+    assert(findLastMatching(listOf(1, 3)) { it % 2 == 0 } == null)
+    assert(findLastMatching<Int>(listOf()) { it > 0 } == null)
     val first = Sample(1, true)
     val second = Sample(2, true)
     val source = mutableListOf(first, Sample(3, false), second)
-    expectTrue(findLastMatching(source) { it.active } === second)
-    expectEquals(listOf(first, Sample(3, false), second), source)
+    assert(findLastMatching(source) { it.active } === second)
+    assert(source == listOf(first, Sample(3, false), second))
 }
 
 object Test {

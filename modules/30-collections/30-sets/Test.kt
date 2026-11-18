@@ -1,13 +1,13 @@
 fun testSolution() {
     val names = mutableListOf("Ada", "Linus", "Ada")
-    expectEquals(setOf("Ada", "Linus"), distinctOrNull(names, "Ada"))
-    expectEquals(listOf("Ada", "Linus", "Ada"), names)
-    expectEquals(setOf("Ada", "Linus"), distinctOrNull(names, "Linus"))
-    expectEquals(null, distinctOrNull(names, "ada"))
-    expectEquals(null, distinctOrNull(listOf("Ada"), "Grace"))
-    expectEquals(null, distinctOrNull(listOf(), "Ada"))
-    expectEquals(setOf(""), distinctOrNull(listOf("", ""), ""))
-    expectEquals(setOf("a", "b", "c"), distinctOrNull(listOf("c", "b", "a", "b"), "b"))
+    assert(distinctOrNull(names, "Ada") == setOf("Ada", "Linus"))
+    assert(names == listOf("Ada", "Linus", "Ada"))
+    assert(distinctOrNull(names, "Linus") == setOf("Ada", "Linus"))
+    assert(distinctOrNull(names, "ada") == null)
+    assert(distinctOrNull(listOf("Ada"), "Grace") == null)
+    assert(distinctOrNull(listOf(), "Ada") == null)
+    assert(distinctOrNull(listOf("", ""), "") == setOf(""))
+    assert(distinctOrNull(listOf("c", "b", "a", "b"), "b") == setOf("a", "b", "c"))
 }
 
 object Test {
