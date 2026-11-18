@@ -1,9 +1,9 @@
 fun testSolution() {
-    expectEquals(0, discountedPrice(0))
-    expectEquals(0, discountedPrice(1))
-    expectEquals(9, discountedPrice(10))
-    expectEquals(112, discountedPrice(125))
-    expectEquals(90000, discountedPrice(100000))
+    assert(discountedPrice(0) == 0)
+    assert(discountedPrice(1) == 0)
+    assert(discountedPrice(10) == 9)
+    assert(discountedPrice(125) == 112)
+    assert(discountedPrice(100000) == 90000)
 }
 
 object Test {

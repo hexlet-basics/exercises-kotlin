@@ -1,13 +1,13 @@
 fun testSolution() {
-    expectEquals(6, visibleLength("  Kotlin ", 10))
-    expectEquals(10, visibleLength(null, 10))
-    expectEquals(-5, visibleLength(null, -5))
-    expectEquals(0, visibleLength(null, 0))
-    expectEquals(0, visibleLength("   ", 10))
-    expectEquals(0, visibleLength("", 5))
-    expectEquals(1, visibleLength("x", 99))
-    expectEquals(3, visibleLength(" a b ", 99))
-    expectEquals(4, visibleLength("code", -1))
+    assert(visibleLength("  Kotlin ", 10) == 6)
+    assert(visibleLength(null, 10) == 10)
+    assert(visibleLength(null, -5) == -5)
+    assert(visibleLength(null, 0) == 0)
+    assert(visibleLength("   ", 10) == 0)
+    assert(visibleLength("", 5) == 0)
+    assert(visibleLength("x", 99) == 1)
+    assert(visibleLength(" a b ", 99) == 3)
+    assert(visibleLength("code", -1) == 4)
 }
 
 object Test {

@@ -1,9 +1,9 @@
 fun testSolution() {
-    expectEquals("@Mira [member]", makeSignature("Mira"), "both defaults")
-    expectEquals("@Lev [admin]", makeSignature("Lev", role = "admin"), "custom role")
-    expectEquals("#Ira [member]", makeSignature("Ira", prefix = "#"), "skip role")
-    expectEquals("+Sam [guest]", makeSignature(prefix = "+", name = "Sam", role = "guest"), "named arguments")
-    expectEquals("Noa []", makeSignature("Noa", "", ""), "empty settings")
+    assert(makeSignature("Mira") == "@Mira [member]") { "both defaults" }
+    assert(makeSignature("Lev", role = "admin") == "@Lev [admin]") { "custom role" }
+    assert(makeSignature("Ira", prefix = "#") == "#Ira [member]") { "skip role" }
+    assert(makeSignature(prefix = "+", name = "Sam", role = "guest") == "+Sam [guest]") { "named arguments" }
+    assert(makeSignature("Noa", "", "") == "Noa []") { "empty settings" }
 }
 
 object Test {

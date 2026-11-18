@@ -1,5 +1,5 @@
 fun testSolution() {
-    expectEquals("user-42 (7)\n", captureOutput { main() })
+    assert(captureOutput { main() } == "user-42 (7)\n")
 }
 
 object Test {

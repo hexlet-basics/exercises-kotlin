@@ -1,13 +1,13 @@
 fun testSolution() {
-    expectEquals(3, DeliveryMode.entries.size)
-    expectEquals(0, DeliveryMode.PICKUP.days)
-    expectEquals(3, DeliveryMode.STANDARD.days)
-    expectEquals(1, DeliveryMode.EXPRESS.days)
-    expectEquals(0, shippingCost(DeliveryMode.PICKUP))
-    expectEquals(200, shippingCost(DeliveryMode.STANDARD))
-    expectEquals(500, shippingCost(DeliveryMode.EXPRESS))
-    expectEquals(0, shippingCost(DeliveryMode.PICKUP))
-    expectEquals("EXPRESS", DeliveryMode.EXPRESS.name)
+    assert(DeliveryMode.entries.size == 3)
+    assert(DeliveryMode.PICKUP.days == 0)
+    assert(DeliveryMode.STANDARD.days == 3)
+    assert(DeliveryMode.EXPRESS.days == 1)
+    assert(shippingCost(DeliveryMode.PICKUP) == 0)
+    assert(shippingCost(DeliveryMode.STANDARD) == 200)
+    assert(shippingCost(DeliveryMode.EXPRESS) == 500)
+    assert(shippingCost(DeliveryMode.PICKUP) == 0)
+    assert(DeliveryMode.EXPRESS.name == "EXPRESS")
 }
 
 object Test {

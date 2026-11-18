@@ -35,6 +35,12 @@ if [[ -n ${KOTLIN_FAST_CLASSPATH:-} ]]; then
     compiler_args+=(-no-jdk -no-stdlib -no-reflect)
 fi
 
+# Power-assert rewrites assert() calls into a diagram of every subexpression.
+compiler_args+=(
+    "-Xplugin=$kotlin_home/lib/power-assert-compiler-plugin.jar"
+    -P plugin:org.jetbrains.kotlin.powerassert:function=kotlin.assert
+)
+
 # One-shot compilation benefits from C1 without the cost of higher JIT tiers.
 exec "${JAVA_BIN:-java}" \
     "${jvm_args[@]}" \

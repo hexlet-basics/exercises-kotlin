@@ -1,12 +1,12 @@
 fun testSolution() {
-    expectEquals("item 42", "  ITEM 42  ".normalizedCode())
-    expectEquals("", "   ".normalizedCode())
-    expectEquals("", "".normalizedCode())
-    expectEquals("a b", " A B ".normalizedCode())
-    expectEquals("номер-7", " НОМЕР-7 ".normalizedCode())
+    assert("  ITEM 42  ".normalizedCode() == "item 42")
+    assert("   ".normalizedCode() == "")
+    assert("".normalizedCode() == "")
+    assert(" A B ".normalizedCode() == "a b")
+    assert(" НОМЕР-7 ".normalizedCode() == "номер-7")
     val original = " Mixed "
-    expectEquals("mixed", original.normalizedCode())
-    expectEquals(" Mixed ", original)
+    assert(original.normalizedCode() == "mixed")
+    assert(original == " Mixed ")
 }
 
 object Test {

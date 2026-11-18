@@ -1,16 +1,16 @@
 fun testSolution() {
-    expectEquals(12, readCount(12))
-    expectEquals(-7, readCount(-7))
-    expectEquals(0, readCount(0))
-    expectEquals(34, readCount(" 34 "))
-    expectEquals(-23, readCount("-23"))
-    expectEquals(null, readCount("many"))
-    expectEquals(null, readCount(""))
-    expectEquals(null, readCount("2147483648"))
-    expectEquals(null, readCount(12L))
-    expectEquals(null, readCount(12.0))
-    expectEquals(null, readCount(true))
-    expectEquals(null, readCount(null))
+    assert(readCount(12) == 12)
+    assert(readCount(-7) == -7)
+    assert(readCount(0) == 0)
+    assert(readCount(" 34 ") == 34)
+    assert(readCount("-23") == -23)
+    assert(readCount("many") == null)
+    assert(readCount("") == null)
+    assert(readCount("2147483648") == null)
+    assert(readCount(12L) == null)
+    assert(readCount(12.0) == null)
+    assert(readCount(true) == null)
+    assert(readCount(null) == null)
 }
 
 object Test {

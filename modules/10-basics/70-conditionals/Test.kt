@@ -1,13 +1,13 @@
 fun testSolution() {
-    expectEquals("invalid", deliveryLabel(0, false), "zero")
-    expectEquals("invalid", deliveryLabel(-3, true), "invalid before express")
-    expectEquals("express", deliveryLabel(1, true), "small express parcel")
-    expectEquals("express", deliveryLabel(5, true), "express boundary")
-    expectEquals("standard", deliveryLabel(5, false), "express not requested")
-    expectEquals("standard", deliveryLabel(6, true), "above express limit")
-    expectEquals("standard", deliveryLabel(20, false), "standard boundary")
-    expectEquals("cargo", deliveryLabel(21, false), "above standard limit")
-    expectEquals("cargo", deliveryLabel(100, true), "large express request")
+    assert(deliveryLabel(0, false) == "invalid") { "zero" }
+    assert(deliveryLabel(-3, true) == "invalid") { "invalid before express" }
+    assert(deliveryLabel(1, true) == "express") { "small express parcel" }
+    assert(deliveryLabel(5, true) == "express") { "express boundary" }
+    assert(deliveryLabel(5, false) == "standard") { "express not requested" }
+    assert(deliveryLabel(6, true) == "standard") { "above express limit" }
+    assert(deliveryLabel(20, false) == "standard") { "standard boundary" }
+    assert(deliveryLabel(21, false) == "cargo") { "above standard limit" }
+    assert(deliveryLabel(100, true) == "cargo") { "large express request" }
 }
 
 object Test {

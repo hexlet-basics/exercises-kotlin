@@ -1,25 +1,6 @@
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
-fun expectEquals(
-    expected: Any?,
-    actual: Any?,
-    label: String = "",
-) {
-    if (expected != actual) {
-        throw AssertionError("$label\nExpected: $expected\nActual: $actual")
-    }
-}
-
-fun expectTrue(
-    condition: Boolean,
-    label: String = "",
-) {
-    if (!condition) {
-        throw AssertionError(label.ifEmpty { "Expected true" })
-    }
-}
-
 fun captureOutput(block: () -> Unit): String {
     val original = System.out
     val bytes = ByteArrayOutputStream()

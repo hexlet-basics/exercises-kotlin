@@ -1,21 +1,21 @@
 fun testSolution() {
     val first = Shipment("P-8", 4)
-    expectEquals("P-8", first.code)
-    expectEquals(4, first.weight)
-    expectEquals(60, first.charge(15))
+    assert(first.code == "P-8")
+    assert(first.weight == 4)
+    assert(first.charge(15) == 60)
     first.weight = 6
-    expectEquals(90, first.charge(15))
+    assert(first.charge(15) == 90)
     val second = Shipment("P-8", 4)
-    expectEquals(4, second.weight)
-    expectEquals(60, second.charge(15))
-    expectTrue(first !== second)
+    assert(second.weight == 4)
+    assert(second.charge(15) == 60)
+    assert(first !== second)
     val same = first
     same.weight = 1
-    expectEquals(1, first.weight)
-    expectEquals(4, second.weight)
-    expectEquals(0, first.charge(0))
-    expectEquals(0, Shipment("empty", 0).charge(100))
-    expectEquals(120, Shipment("other", 10).charge(12))
+    assert(first.weight == 1)
+    assert(second.weight == 4)
+    assert(first.charge(0) == 0)
+    assert(Shipment("empty", 0).charge(100) == 0)
+    assert(Shipment("other", 10).charge(12) == 120)
 }
 
 object Test {
